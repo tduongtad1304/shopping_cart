@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_cart/controllers/cart_controller.dart';
-import 'package:shopping_cart/models/products_model.dart';
+import 'package:shopping_cart/controllers/product_controller.dart';
 
 class CatalogProducts extends StatelessWidget {
-  const CatalogProducts({Key? key}) : super(key: key);
+  CatalogProducts({Key? key}) : super(key: key);
+
+  final productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListView.builder(
-          itemCount: Product.products.length,
-          itemBuilder: (context, index) {
-            return CatalogProductCard(
-              index: index,
-            );
-          }),
+    return Obx(
+      () => Flexible(
+        child: ListView.builder(
+            itemCount: productController.products.length,
+            itemBuilder: (context, index) {
+              return CatalogProductCard(
+                index: index,
+              );
+            }),
+      ),
     );
   }
 }
@@ -25,6 +29,7 @@ class CatalogProductCard extends StatelessWidget {
 
   final cartController = Get.put(CartController());
   final int index;
+  final ProductController productController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,7 @@ class CatalogProductCard extends StatelessWidget {
           CircleAvatar(
             radius: 40,
             backgroundImage: NetworkImage(
-              Product.products[index].imageUrl,
+              productController.products[index].imageUrl,
             ),
           ),
           const SizedBox(
@@ -44,7 +49,7 @@ class CatalogProductCard extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              Product.products[index].name,
+              productController.products[index].name,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -52,11 +57,11 @@ class CatalogProductCard extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text('${Product.products[index].price}'),
+            child: Text('\$${productController.products[index].price}'),
           ),
           IconButton(
             onPressed: () {
-              cartController.addProduct(Product.products[index]);
+              cartController.addProduct(productController.products[index]);
             },
             icon: const Icon(Icons.add_circle_rounded),
           ),

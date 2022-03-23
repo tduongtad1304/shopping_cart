@@ -10,25 +10,27 @@ class CartProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600,
-      child: ListView.builder(
-        itemCount: controller.products.length,
-        itemBuilder: ((context, index) {
-          return CartProductCard(
-            controller: controller,
-            product: controller.products.keys.toList()[index],
-            quantity: controller.products.values.toList()[index],
-            index: index,
-          );
-        }),
+    return Obx(
+      () => SizedBox(
+        height: 500,
+        child: ListView.builder(
+          itemCount: controller.products.length,
+          itemBuilder: ((context, index) {
+            return CartProductCard(
+              controller: controller,
+              product: controller.products.keys.toList()[index],
+              quantity: controller.products.values.toList()[index],
+              index: index,
+            );
+          }),
+        ),
       ),
     );
   }
 }
 
 class CartProductCard extends StatelessWidget {
-  CartProductCard(
+  const CartProductCard(
       {Key? key,
       required this.controller,
       required this.index,
@@ -61,12 +63,16 @@ class CartProductCard extends StatelessWidget {
             child: Text(product.name),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.removeProduct(product);
+            },
             icon: const Icon(Icons.remove_circle),
           ),
-          Text(quantity.toString()),
+          Text('$quantity'),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.addProduct(product);
+            },
             icon: const Icon(Icons.add_circle),
           ),
         ],

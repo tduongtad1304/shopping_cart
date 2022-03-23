@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import '../widgets/widgets.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -9,8 +10,13 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Cart'),
+          title: const Text('Your Product Cart'),
         ),
-        body: Container());
+        body: Column(
+          children: [
+            CartProducts(),
+            CartTotal(),
+          ],
+        ));
   }
 }
