@@ -6,7 +6,7 @@ import 'package:shopping_cart/models/products_model.dart';
 class CartProducts extends StatelessWidget {
   CartProducts({Key? key}) : super(key: key);
 
-  final CartController controller = Get.find();
+  final CartController controller = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,13 @@ class CartProductCard extends StatelessWidget {
             width: 20,
           ),
           Expanded(
-            child: Text(product.name),
+            child: Text(
+              product.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
           ),
           IconButton(
             onPressed: () {
@@ -74,6 +80,26 @@ class CartProductCard extends StatelessWidget {
               controller.addProduct(product);
             },
             icon: const Icon(Icons.add_circle),
+          ),
+          IconButton(
+            onPressed: () {
+              controller.deleteProduct(product);
+              Get.snackbar(
+                'Product Deleted',
+                'You have deleted the ${product.name}!',
+                messageText: Text(
+                  'You have deleted the ${product.name}!',
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                snackPosition: SnackPosition.TOP,
+                duration: const Duration(seconds: 1),
+                backgroundColor: Colors.white,
+              );
+            },
+            icon: const Icon(Icons.delete),
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/products_model.dart';
@@ -12,12 +13,6 @@ class CartController extends GetxController {
     } else {
       _products[product] = 1;
     }
-    Get.snackbar(
-      'Product Added',
-      'You have added the ${product.name} to your cart!',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 1),
-    );
   }
 
   get products => _products;
@@ -28,6 +23,10 @@ class CartController extends GetxController {
     } else {
       _products[product] -= 1;
     }
+  }
+
+  deleteProduct(Product product) {
+    _products.removeWhere((key, value) => key == product);
   }
 
   //get total price of each product
