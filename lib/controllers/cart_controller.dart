@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/products_model.dart';
@@ -27,6 +26,10 @@ class CartController extends GetxController {
 
   deleteProduct(Product product) {
     _products.removeWhere((key, value) => key == product);
+  }
+
+  deleteAllProducts() {
+    _products.clear();
   }
 
   //get total price of each product

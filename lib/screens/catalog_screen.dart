@@ -21,7 +21,7 @@ class CatalogScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () => Get.to(() => const CartScreen(),
                   transition: Transition.cupertino),
-              child: const Text('Go to Cart'),
+              child: const Text('Go to Cart  🛒'),
             ),
           ],
         ),
